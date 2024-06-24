@@ -7,6 +7,8 @@ services:
             target: production
 
         restart: unless-stopped
+        environment:
+            - NODE_ENV=prod
         ports:
             - '3000:3000'
         env_file:

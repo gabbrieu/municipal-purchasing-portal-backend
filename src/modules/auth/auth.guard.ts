@@ -12,5 +12,7 @@ export class AuthGuard implements CanActivate {
             context.getHandler(),
             context.getClass(),
         ]);
+
+        return true;
     }
 }
