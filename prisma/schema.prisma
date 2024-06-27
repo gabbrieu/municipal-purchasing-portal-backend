@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  MASCULINO
+  FEMININO
+}
+
+enum Race {
+  AMARELA
+  BRANCA
+  PARDA
+  INDIGENA
+  PRETA
+}
+
+enum EducationLevel {
+  ANALFABETO
+  ENSINO_FUNDAMENTAL_COMPLETO
+  ENSINO_MEDIO_INCOMPLETO
+  ENSINO_MEDIO_COMPLETO
+  GRADUACAO_INCOMPLETO
+  GRADUACAO_COMPLETO
+  POS_GRADUACAO_INCOMPLETO
+  POS_GRADUACAO_COMPLETO
+  MESTRADO_INCOMPLETO
+  MESTRADO_COMPLETO
+  DOUTORADO_INCOMPLETO
+  DOUTORADO_COMPLETO
+  POS_DOUTORADO_INCOMPLETO
+  POS_DOUTORADO_COMPLETO
+}
+
+model User {
+  id              Int             @default(autoincrement()) @id
+  name            String          @db.VarChar(255)
+  email           String          @db.VarChar(80) @unique
+  password        String          @db.VarChar(300)
+  birthDate       DateTime        @db.Date
+  cpf             String          @db.VarChar(11)
+  cellphone       String          @db.VarChar(11)
+  telephone       String?         @db.VarChar(10)
+  sex             Gender
+  race            Race
+  address         String          @db.VarChar(255)
+  addressNumber   Int             @db.SmallInt
+  complement      String?         @db.VarChar(255)
+  city            String          @db.VarChar(100)
+  state           String          @db.Char(2)
+  postalCode      String          @db.VarChar(8)
+  username        String          @db.VarChar(30) @unique
+  jobTitle        String          @db.VarChar(100)
+  educationLevel  EducationLevel
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @default(now())
+}
