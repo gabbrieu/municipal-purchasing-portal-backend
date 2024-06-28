@@ -8,10 +8,14 @@ services:
 
         restart: unless-stopped
         command: npm run start:dev
+        environment:
+            - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?schema=${POSTGRES_SCHEMA}
         ports:
             - '3000:3000'
         volumes:
             - .:/app
+        networks:
+            - local-network
         depends_on:
             - database
         env_file:
@@ -19,6 +23,8 @@ services:
 
     database:
         container_name: postgres
+        networks:
+            - local-network
         image: postgres:16-alpine
         restart: always
         volumes:
@@ -31,6 +37,10 @@ services:
             - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
             - POSTGRES_DB=${POSTGRES_DB}
             - POSTGRES_USER=postgres
+            - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:${POSTGRES_PORT}/${POSTGRES_DB}?schema=${POSTGRES_SCHEMA}
+
+networks:
+    local-network:
 
 volumes:
     postgres-data:
