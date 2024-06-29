@@ -16,6 +16,13 @@
         "noImplicitAny": false,
         "strictBindCallApply": false,
         "forceConsistentCasingInFileNames": false,
-        "noFallthroughCasesInSwitch": false
+        "noFallthroughCasesInSwitch": false,
+        "paths": {
+            "@midlewares/*": ["./src/midlewares/*"],
+            "@utils/*": ["./src/utils/*"],
+            "@config/*": ["./src/config/*"],
+            "@interceptors/*": ["./src/interceptors/*"],
+            "@modules/*": ["./src/modules/*"]
+        }
     }
 }
