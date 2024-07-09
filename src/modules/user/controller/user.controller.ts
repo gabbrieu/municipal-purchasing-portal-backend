@@ -47,7 +47,7 @@ export class UserController {
 
     @Get(':id')
     @UseGuards(JwtAuthGuard, RolesGuard)
-    async findOneById(@Param('id') id: string) {
+    async findOneById(@Param('id') id: string): Promise<UserWithoutPassword> {
         return await this.findOneUserUseCase.execute({ id: +id });
     }
 }
