@@ -28,7 +28,10 @@ async function bootstrap(): Promise<void> {
 }
 
 function setupLogger(): winston.Logger {
-    const logger = createLogger({
+    const isProd = process.env.NODE_ENV === 'prod';
+
+    const logger: winston.Logger = createLogger({
+        level: isProd ? 'error' : 'info',
         format: winston.format.json(),
         transports: [
             new winston.transports.Console({
@@ -41,11 +44,12 @@ function setupLogger(): winston.Logger {
                         processId: true,
                     })
                 ),
+                level: isProd ? 'error' : 'info',
             }),
         ],
     });
 
-    if (process.env.NODE_ENV === 'prod') {
+    if (isProd) {
         const cloudwatchConfig: WinstonCloudWatch.CloudwatchTransportOptions = {
             logGroupName: process.env.CLOUDWATCH_GROUP_NAME,
             logStreamName: `${process.env.CLOUDWATCH_GROUP_NAME}-${process.env.NODE_ENV}`,
@@ -53,6 +57,7 @@ function setupLogger(): winston.Logger {
             awsSecretKey: process.env.AWS_SECRET_ACCESS_KEY,
             awsRegion: process.env.AWS_REGION,
             jsonMessage: true,
+            level: 'error',
         };
         logger.add(new WinstonCloudWatch(cloudwatchConfig));
     }
