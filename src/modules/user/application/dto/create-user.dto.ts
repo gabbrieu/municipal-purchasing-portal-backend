@@ -1,4 +1,4 @@
-import { $Enums } from '@prisma/client';
+import { ERoles } from '@modules/auth/types';
 import {
     IsDateString,
     IsEmail,
@@ -9,6 +9,11 @@ import {
     Length,
     MaxLength,
 } from 'class-validator';
+import {
+    EEducationLevel,
+    EGender,
+    ERace,
+} from '../../domain/entities/user.entity';
 
 export class CreateUserDto {
     @MaxLength(255)
@@ -35,16 +40,11 @@ export class CreateUserDto {
     @IsString()
     cellphone: string;
 
-    @IsOptional()
-    @Length(10, 10)
-    @IsString()
-    telephone?: string;
+    @IsEnum(EGender)
+    sex: EGender;
 
-    @IsEnum($Enums.Gender)
-    sex: $Enums.Gender;
-
-    @IsEnum($Enums.Race)
-    race: $Enums.Race;
+    @IsEnum(ERace)
+    race: ERace;
 
     @IsString()
     @MaxLength(255)
@@ -52,11 +52,6 @@ export class CreateUserDto {
 
     @IsNumber()
     addressNumber: number;
-
-    @IsOptional()
-    @MaxLength(255)
-    @IsString()
-    complement?: string;
 
     @IsString()
     @MaxLength(100)
@@ -77,10 +72,20 @@ export class CreateUserDto {
     @IsString()
     jobTitle: string;
 
-    @IsOptional()
-    @IsEnum($Enums.Roles)
-    role?: $Enums.Roles;
+    @IsEnum(EEducationLevel)
+    educationLevel: EEducationLevel;
 
-    @IsEnum($Enums.EducationLevel)
-    educationLevel: $Enums.EducationLevel;
+    @IsOptional()
+    @Length(10, 10)
+    @IsString()
+    telephone?: string;
+
+    @IsOptional()
+    @IsEnum(ERoles)
+    role?: ERoles;
+
+    @IsOptional()
+    @MaxLength(255)
+    @IsString()
+    complement?: string;
 }

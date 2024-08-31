@@ -6,12 +6,9 @@ import { SuppliersHttpService } from '../services/suppliers-http.service';
 
 @Injectable()
 export class FindSuppliersUseCase {
-    constructor(
-        private readonly suppliersHttpService: SuppliersHttpService,
-        private readonly logger: Logger
-    ) {
-        (this.logger as any).context = FindSuppliersUseCase.name;
-    }
+    private readonly logger: Logger = new Logger(FindSuppliersUseCase.name);
+
+    constructor(private readonly suppliersHttpService: SuppliersHttpService) {}
 
     async execute(dto: FindSuppliersDTO): Promise<Supplier[]> {
         try {

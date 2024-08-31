@@ -6,15 +6,13 @@ import { Supplier } from '../entities/supplier.entity';
 
 @Injectable()
 export class SuppliersHttpService {
+    private readonly logger: Logger = new Logger(SuppliersHttpService.name);
     private readonly _baseURL: string;
 
     constructor(
         private readonly httpService: HttpService,
-        private readonly configService: ConfigService,
-        private readonly logger: Logger
+        private readonly configService: ConfigService
     ) {
-        (this.logger as any).context = SuppliersHttpService.name;
-
         const govBaseURL: string =
             this.configService.getOrThrow<string>('GOV_BASE_URL');
         this._baseURL = govBaseURL + '/fornecedores/v1';
