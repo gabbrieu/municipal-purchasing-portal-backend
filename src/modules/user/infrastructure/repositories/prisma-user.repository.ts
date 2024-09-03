@@ -1,5 +1,5 @@
 import { PrismaService } from '@config/prisma.service';
-import { ERoles } from '@modules/auth/types';
+import { ERoles } from '@modules/auth/application/dto/auth.dto';
 import { Injectable } from '@nestjs/common';
 import { Prisma, User } from '@prisma/client';
 import { CreateUserDto } from '../../application/dto/create-user.dto';

@@ -1,7 +1,7 @@
-import { Roles } from '@modules/auth/roles.decorator';
-import { JwtAuthGuard } from '@modules/auth/services/auth.guard';
-import { RolesGuard } from '@modules/auth/services/roles.guard';
-import { ERoles, IReqUser } from '@modules/auth/types';
+import { Roles } from '@modules/auth/application/decorators/roles.decorator';
+import { ERoles, IReqUser } from '@modules/auth/application/dto/auth.dto';
+import { JwtAuthGuard } from '@modules/auth/application/services/auth.guard';
+import { RolesGuard } from '@modules/auth/application/services/roles.guard';
 import {
     Body,
     Controller,

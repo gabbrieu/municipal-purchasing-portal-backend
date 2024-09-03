@@ -1,4 +1,4 @@
-import { ERoles } from '@modules/auth/types';
+import { ERoles } from '@modules/auth/application/dto/auth.dto';
 
 export enum EGender {
     MASCULINO = 'MASCULINO',

@@ -1,4 +1,4 @@
-import { IJWTPayload } from '@modules/auth/types';
+import { IJWTPayload } from '@modules/auth/application/dto/auth.dto';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ErrorHandler } from '@utils/error-handler.utils';

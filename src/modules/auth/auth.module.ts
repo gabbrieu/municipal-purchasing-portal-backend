@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { PrismaService } from '../../config/prisma.service';
-import { JwtAuthGuard } from './services/auth.guard';
-import { JwtStrategy } from './services/jwt.strategy';
-import { RolesGuard } from './services/roles.guard';
+import { JwtAuthGuard } from './application/services/auth.guard';
+import { JwtStrategy } from './application/services/jwt.strategy';
+import { RolesGuard } from './application/services/roles.guard';
 
 @Module({
     imports: [
