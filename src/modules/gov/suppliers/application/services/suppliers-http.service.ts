@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { lastValueFrom } from 'rxjs';
-import { Supplier } from '../entities/supplier.entity';
+import { Supplier } from '../../domain/entities/supplier.entity';
 
 @Injectable()
 export class SuppliersHttpService {

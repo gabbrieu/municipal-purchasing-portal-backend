@@ -1,9 +1,9 @@
+import { JwtAuthGuard } from '@modules/auth/services/auth.guard';
+import { RolesGuard } from '@modules/auth/services/roles.guard';
 import { Controller, Get, Query, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../../../auth/services/auth.guard';
-import { RolesGuard } from '../../../auth/services/roles.guard';
-import { FindSuppliersDTO } from '../dto/find-suppliers.dto';
-import { Supplier } from '../entities/supplier.entity';
-import { FindSuppliersUseCase } from '../usecases/find-suppliers.usecase';
+import { FindSuppliersDTO } from '../../application/dto/find-suppliers.dto';
+import { FindSuppliersUseCase } from '../../application/usecases/find-suppliers.usecase';
+import { Supplier } from '../../domain/entities/supplier.entity';
 
 @Controller('gov/suppliers')
 @UseGuards(JwtAuthGuard, RolesGuard)

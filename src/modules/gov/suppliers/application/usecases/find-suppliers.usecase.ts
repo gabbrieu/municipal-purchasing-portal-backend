@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ErrorHandler } from '@utils/error-handler.utils';
+import { Supplier } from '../../domain/entities/supplier.entity';
 import { EPorte, FindSuppliersDTO } from '../dto/find-suppliers.dto';
-import { Supplier } from '../entities/supplier.entity';
 import { SuppliersHttpService } from '../services/suppliers-http.service';
 
 @Injectable()
