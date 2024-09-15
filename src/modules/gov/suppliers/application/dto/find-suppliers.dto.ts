@@ -1,4 +1,5 @@
 import { IsEnum, IsOptional, IsString, Length } from 'class-validator';
+import { IsCNPJ } from '../../../../core/decorators/is-cnpj.decorator';
 
 export enum EPorte {
     ME = 'MICROEMPRESA',
@@ -7,6 +8,7 @@ export enum EPorte {
 }
 
 export class FindSuppliersDTO {
+    @IsCNPJ()
     @IsOptional()
     @IsString()
     cnpj?: string;

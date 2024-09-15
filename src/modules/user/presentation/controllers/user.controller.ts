@@ -1,16 +1,9 @@
+import { GetUser } from '@core/decorators/get-user.decorator';
 import { Roles } from '@modules/auth/application/decorators/roles.decorator';
 import { ERoles, IReqUser } from '@modules/auth/application/dto/auth.dto';
 import { JwtAuthGuard } from '@modules/auth/application/services/auth.guard';
 import { RolesGuard } from '@modules/auth/application/services/roles.guard';
-import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    Post,
-    Request,
-    UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from '../../application/dto/create-user.dto';
 import { LoginDto, LoginOutputDto } from '../../application/dto/login.dto';
 import { CreateUserUseCase } from '../../application/usecases/create-user.usecase';
@@ -41,8 +34,8 @@ export class UserController {
 
     @Get('profile')
     @UseGuards(JwtAuthGuard, RolesGuard)
-    getProfile(@Request() req): IReqUser {
-        return req.user as IReqUser;
+    getProfile(@GetUser() user: IReqUser): IReqUser {
+        return user;
     }
 
     @Get(':id')

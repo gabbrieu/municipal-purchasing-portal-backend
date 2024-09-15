@@ -1,3 +1,4 @@
+import { IBaseEntity } from '@core/interfaces/base.entity.interface';
 import { ERoles } from '@modules/auth/application/dto/auth.dto';
 
 export enum EGender {
@@ -30,8 +31,7 @@ export enum EEducationLevel {
     POS_DOUTORADO_COMPLETO = 'POS_DOUTORADO_COMPLETO',
 }
 
-export interface IUser {
-    id: number;
+export interface IUser extends IBaseEntity {
     name: string;
     email: string;
     password: string;
@@ -51,8 +51,6 @@ export interface IUser {
     jobTitle: string;
     role: ERoles;
     educationLevel: EEducationLevel;
-    createdAt: Date;
-    updatedAt: Date;
 }
 
 export interface IUserWithoutPassword extends Omit<IUser, 'password'> {}
