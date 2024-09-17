@@ -17,6 +17,7 @@ import {
 } from '@nestjs/common';
 import { CreateContactDTO } from '../../application/dto/create-contacts.dto';
 import { CreateContactsUseCase } from '../../application/usecases/create-contacts.usecase';
+import { FindContactsUseCase } from '../../application/usecases/find-contacts.usecase';
 import { IContacts } from '../../domain/entities/contacts.entity';
 
 @Controller('users/:userId/contacts')
@@ -25,7 +26,8 @@ import { IContacts } from '../../domain/entities/contacts.entity';
 @UseInterceptors(CheckUserInterceptor)
 export class ContactsController {
     constructor(
-        private readonly createContactsUseCase: CreateContactsUseCase
+        private readonly createContactsUseCase: CreateContactsUseCase,
+        private readonly findContactsUseCase: FindContactsUseCase
     ) {}
 
     @Post()
@@ -33,14 +35,23 @@ export class ContactsController {
         @Param('userId', ParseIntPipe) userId: number,
         @Body() dto: CreateContactDTO
     ): Promise<IContacts> {
-        return await this.createContactsUseCase.execute(userId, dto);
+        return this.createContactsUseCase.execute(userId, dto);
     }
 
     @Get(':contactsId')
-    async findOne() {}
+    async findOne(
+        @Param('contactsId', ParseIntPipe) id: number,
+        @Param('userId', ParseIntPipe) userId: number
+    ): Promise<IContacts> {
+        return this.findContactsUseCase.execute({ id, userId });
+    }
 
     @Get()
-    async findAll() {}
+    async findAllByUser(
+        @Param('userId', ParseIntPipe) userId: number
+    ): Promise<IContacts> {
+        return this.findContactsUseCase.execute({ userId });
+    }
 
     @Patch(':contactsId')
     async update() {}
