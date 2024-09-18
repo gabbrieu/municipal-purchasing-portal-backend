@@ -16,8 +16,10 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { CreateContactDTO } from '../../application/dto/create-contacts.dto';
+import { UpdateContactsDTO } from '../../application/dto/update-contacts.dto';
 import { CreateContactsUseCase } from '../../application/usecases/create-contacts.usecase';
 import { FindContactsUseCase } from '../../application/usecases/find-contacts.usecase';
+import { UpdateContactsUseCase } from '../../application/usecases/update-contacts.usecase';
 import { IContacts } from '../../domain/entities/contacts.entity';
 
 @Controller('users/:userId/contacts')
@@ -27,7 +29,8 @@ import { IContacts } from '../../domain/entities/contacts.entity';
 export class ContactsController {
     constructor(
         private readonly createContactsUseCase: CreateContactsUseCase,
-        private readonly findContactsUseCase: FindContactsUseCase
+        private readonly findContactsUseCase: FindContactsUseCase,
+        private readonly updateContactsUseCase: UpdateContactsUseCase
     ) {}
 
     @Post()
@@ -54,7 +57,13 @@ export class ContactsController {
     }
 
     @Patch(':contactsId')
-    async update() {}
+    async update(
+        @Param('contactsId', ParseIntPipe) id: number,
+        @Param('userId', ParseIntPipe) userId: number,
+        @Body() dto: UpdateContactsDTO
+    ): Promise<IContacts> {
+        return this.updateContactsUseCase.execute(id, userId, dto);
+    }
 
     @Delete(':contactsId')
     async delete() {}

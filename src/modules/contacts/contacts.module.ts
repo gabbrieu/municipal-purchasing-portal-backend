@@ -2,6 +2,7 @@ import { PrismaService } from '@config/prisma.service';
 import { Module } from '@nestjs/common';
 import { CreateContactsUseCase } from './application/usecases/create-contacts.usecase';
 import { FindContactsUseCase } from './application/usecases/find-contacts.usecase';
+import { UpdateContactsUseCase } from './application/usecases/update-contacts.usecase';
 import { ContactsRepository } from './domain/repositories/contacts.repository.interface';
 import { PrismaContactsRepository } from './infrastructure/repositories/prisma-contacts.repository';
 import { ContactsController } from './presentation/controllers/contacts.controller';
@@ -16,6 +17,7 @@ import { ContactsController } from './presentation/controllers/contacts.controll
         CreateContactsUseCase,
         PrismaService,
         FindContactsUseCase,
+        UpdateContactsUseCase,
     ],
 })
 export class ContactsModule {}

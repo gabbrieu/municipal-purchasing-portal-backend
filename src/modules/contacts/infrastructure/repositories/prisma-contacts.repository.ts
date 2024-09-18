@@ -28,6 +28,15 @@ export class PrismaContactsRepository implements ContactsRepository {
         return contacts ?? undefined;
     }
 
+    async update(entity: IContacts): Promise<IContacts> {
+        const contacts = await this.prismaService.contacts.update({
+            where: { id: entity.id },
+            data: entity,
+        });
+
+        return this.mapToDomain(contacts);
+    }
+
     private mapToDomain(contact: Contacts): IContacts {
         return {
             id: contact.id,

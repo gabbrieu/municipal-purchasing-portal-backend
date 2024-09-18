@@ -6,4 +6,5 @@ export type ContactsWhere = Partial<IContacts>;
 export abstract class ContactsRepository {
     abstract create(userId: number, dto: CreateContactDTO): Promise<IContacts>;
     abstract find(where: ContactsWhere): Promise<IContacts | undefined>;
+    abstract update(entity: IContacts): Promise<IContacts>;
 }
