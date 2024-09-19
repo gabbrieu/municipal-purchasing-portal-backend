@@ -16,8 +16,10 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { CreateContactDTO } from '../../application/dto/create-contacts.dto';
+import { DeleteOneContactDTO } from '../../application/dto/delete-one-contact.dto';
 import { UpdateContactsDTO } from '../../application/dto/update-contacts.dto';
 import { CreateContactsUseCase } from '../../application/usecases/create-contacts.usecase';
+import { DeleteOneContactUseCase } from '../../application/usecases/delete-one-contact.usecase';
 import { FindContactsUseCase } from '../../application/usecases/find-contacts.usecase';
 import { UpdateContactsUseCase } from '../../application/usecases/update-contacts.usecase';
 import { IContacts } from '../../domain/entities/contacts.entity';
@@ -30,7 +32,8 @@ export class ContactsController {
     constructor(
         private readonly createContactsUseCase: CreateContactsUseCase,
         private readonly findContactsUseCase: FindContactsUseCase,
-        private readonly updateContactsUseCase: UpdateContactsUseCase
+        private readonly updateContactsUseCase: UpdateContactsUseCase,
+        private readonly deleteOneContactUseCase: DeleteOneContactUseCase
     ) {}
 
     @Post()
@@ -65,6 +68,12 @@ export class ContactsController {
         return this.updateContactsUseCase.execute(id, userId, dto);
     }
 
-    @Delete(':contactsId')
-    async delete() {}
+    @Delete(':contactsId/:contact')
+    async delete(
+        @Param('contactsId', ParseIntPipe) id: number,
+        @Param('userId', ParseIntPipe) userId: number,
+        @Param() params: DeleteOneContactDTO
+    ) {
+        return this.deleteOneContactUseCase.execute(id, userId, params);
+    }
 }
