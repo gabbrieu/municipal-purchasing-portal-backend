@@ -73,7 +73,7 @@ export class ContactsController {
         @Param('contactsId', ParseIntPipe) id: number,
         @Param('userId', ParseIntPipe) userId: number,
         @Param() params: DeleteOneContactDTO
-    ) {
+    ): Promise<IContacts> {
         return this.deleteOneContactUseCase.execute(id, userId, params);
     }
 }
