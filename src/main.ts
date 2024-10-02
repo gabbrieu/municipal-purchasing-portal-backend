@@ -1,5 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import * as cookieParser from 'cookie-parser';
 import {
     WinstonModule,
     utilities as nestWinstonModuleUtilities,
@@ -20,6 +21,8 @@ async function bootstrap(): Promise<void> {
     });
 
     app.use(new SaveResponseOnLocalsMiddleware().use);
+    app.use(cookieParser());
+
     app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
     app.useGlobalInterceptors(new LoggerInterceptor());
     app.enableCors();

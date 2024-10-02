@@ -1,5 +1,5 @@
+import { IReqUser } from '@modules/auth/application/dto/auth.dto';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { IReqUser } from '../../auth/application/dto/auth.dto';
 
 export const GetUser = createParamDecorator(
     (data: unknown, ctx: ExecutionContext): IReqUser => {

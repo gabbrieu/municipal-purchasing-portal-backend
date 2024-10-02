@@ -3,9 +3,24 @@ import { Roles } from '@modules/auth/application/decorators/roles.decorator';
 import { ERoles, IReqUser } from '@modules/auth/application/dto/auth.dto';
 import { JwtAuthGuard } from '@modules/auth/application/services/auth.guard';
 import { RolesGuard } from '@modules/auth/application/services/roles.guard';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Param,
+    Post,
+    Res,
+    UseGuards,
+} from '@nestjs/common';
+import { Response } from 'express';
 import { CreateUserDto } from '../../application/dto/create-user.dto';
-import { LoginDto, LoginOutputDto } from '../../application/dto/login.dto';
+import {
+    AuthResponseDTO,
+    LoginDTO,
+    LoginOutputDTO,
+} from '../../application/dto/login.dto';
 import { CreateUserUseCase } from '../../application/usecases/create-user.usecase';
 import { FindOneUserUseCase } from '../../application/usecases/find-one-user.usecase';
 import { LoginUseCase } from '../../application/usecases/login.usecase';
@@ -28,8 +43,28 @@ export class UserController {
     }
 
     @Post('login')
-    async login(@Body() body: LoginDto): Promise<LoginOutputDto> {
-        return await this.loginUseCase.execute(body);
+    async login(
+        @Body() body: LoginDTO,
+        @Res({ passthrough: true }) res: Response
+    ): Promise<AuthResponseDTO> {
+        const jwt: LoginOutputDTO = await this.loginUseCase.execute(body);
+
+        res.cookie('auth_token', jwt.accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'prod',
+            sameSite: 'strict',
+            maxAge: 24 * 60 * 60 * 1000, // 1 dia
+        });
+
+        return { message: 'Login successfull' };
+    }
+
+    @Post('logout')
+    @HttpCode(HttpStatus.OK)
+    logout(@Res({ passthrough: true }) res: Response): AuthResponseDTO {
+        res.clearCookie('auth_token');
+
+        return { message: 'Logout successfull' };
     }
 
     @Get('profile')

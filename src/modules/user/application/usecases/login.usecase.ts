@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { ErrorHandler } from '@utils/error-handler.utils';
 import { HashUtils } from '@utils/hash.utils';
 import { IUser } from '../../domain/entities/user.entity';
-import { LoginDto, LoginOutputDto } from '../dto/login.dto';
+import { LoginDTO, LoginOutputDTO } from '../dto/login.dto';
 import { FindOneUserUseCase } from './find-one-user.usecase';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class LoginUseCase {
         private readonly findOneUserUseCase: FindOneUserUseCase
     ) {}
 
-    async execute(dto: LoginDto): Promise<LoginOutputDto> {
+    async execute(dto: LoginDTO): Promise<LoginOutputDTO> {
         try {
             this.logger.log('Logging in...');
 

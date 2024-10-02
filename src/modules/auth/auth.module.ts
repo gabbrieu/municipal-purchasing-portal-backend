@@ -1,9 +1,9 @@
+import { PrismaService } from '@config/prisma.service';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { PrismaService } from '../../config/prisma.service';
 import { JwtAuthGuard } from './application/services/auth.guard';
-import { JwtStrategy } from './application/services/jwt.strategy';
+import { JwtCookieStrategy } from './application/services/jwt-cookie.strategy';
 import { RolesGuard } from './application/services/roles.guard';
 
 @Module({
@@ -12,9 +12,9 @@ import { RolesGuard } from './application/services/roles.guard';
         JwtModule.register({
             global: true,
             secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: '2h' },
+            signOptions: { expiresIn: '1d' },
         }),
     ],
-    providers: [JwtAuthGuard, PrismaService, JwtStrategy, RolesGuard],
+    providers: [JwtAuthGuard, PrismaService, JwtCookieStrategy, RolesGuard],
 })
 export class AuthModule {}

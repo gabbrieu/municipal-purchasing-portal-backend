@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class LoginDto {
+export class LoginDTO {
     @IsString()
     city: string;
 
@@ -11,6 +11,10 @@ export class LoginDto {
     username: string;
 }
 
-export class LoginOutputDto {
+export class LoginOutputDTO {
     accessToken: string;
+}
+
+export class AuthResponseDTO {
+    message: string;
 }
