@@ -20,12 +20,15 @@ async function bootstrap(): Promise<void> {
         }),
     });
 
+    app.enableCors({
+        origin: ['http://localhost:3001'],
+        credentials: true,
+    });
     app.use(new SaveResponseOnLocalsMiddleware().use);
     app.use(cookieParser());
 
     app.useGlobalPipes(new ValidationPipe({ stopAtFirstError: true }));
     app.useGlobalInterceptors(new LoggerInterceptor());
-    app.enableCors();
 
     await app.listen(3000);
 }
