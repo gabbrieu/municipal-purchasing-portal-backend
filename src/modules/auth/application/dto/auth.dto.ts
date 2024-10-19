@@ -1,5 +1,3 @@
-import { $Enums } from '@prisma/client';
-
 export enum ERoles {
     ADMIN = 'ADMIN',
     USER = 'USER',
@@ -11,7 +9,7 @@ export interface IReqUser {
     city: string;
     cpf: string;
     email: string;
-    role: $Enums.Roles;
+    role: ERoles;
 }
 
 export interface IJWTPayload {
@@ -20,7 +18,12 @@ export interface IJWTPayload {
     city: string;
     cpf: string;
     email: string;
-    role: $Enums.Roles;
+    role: ERoles;
     iat: number;
     exp: number;
+}
+
+export interface IRefreshTokenResponseDTO {
+    accessToken: string;
+    refreshToken: string;
 }

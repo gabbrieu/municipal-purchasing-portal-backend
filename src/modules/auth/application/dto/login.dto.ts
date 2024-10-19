@@ -13,6 +13,7 @@ export class LoginDTO {
 
 export class LoginOutputDTO {
     accessToken: string;
+    refreshToken: string;
 }
 
 export class AuthResponseDTO {

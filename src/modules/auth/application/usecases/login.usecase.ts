@@ -1,11 +1,11 @@
 import { IJWTPayload } from '@modules/auth/application/dto/auth.dto';
+import { FindOneUserUseCase } from '@modules/user/application/usecases/find-one-user.usecase';
+import { IUser } from '@modules/user/domain/entities/user.entity';
 import { Injectable, Logger, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ErrorHandler } from '@utils/error-handler.utils';
 import { HashUtils } from '@utils/hash.utils';
-import { IUser } from '../../domain/entities/user.entity';
 import { LoginDTO, LoginOutputDTO } from '../dto/login.dto';
-import { FindOneUserUseCase } from './find-one-user.usecase';
 
 @Injectable()
 export class LoginUseCase {
@@ -35,8 +35,14 @@ export class LoginUseCase {
             };
 
             this.logger.log('User logged in');
+
             return {
-                accessToken: this.jwtService.sign(payload),
+                accessToken: this.jwtService.sign(payload, {
+                    expiresIn: '10m',
+                }),
+                refreshToken: this.jwtService.sign(payload, {
+                    expiresIn: '7d',
+                }),
             };
         } catch (error) {
             ErrorHandler.handle(error);
