@@ -6,6 +6,7 @@ export enum ERoles {
 export interface IReqUser {
     userId: number;
     username: string;
+    name: string;
     city: string;
     cpf: string;
     email: string;
@@ -15,6 +16,7 @@ export interface IReqUser {
 export interface IJWTPayload {
     sub: number;
     username: string;
+    name: string;
     city: string;
     cpf: string;
     email: string;

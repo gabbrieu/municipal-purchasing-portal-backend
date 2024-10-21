@@ -64,6 +64,7 @@ export class RefreshTokenUseCase {
             cpf: user.cpf,
             email: user.email,
             role: user.role,
+            name: user.name,
         };
     }
 }

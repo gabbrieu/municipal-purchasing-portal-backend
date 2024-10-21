@@ -32,6 +32,7 @@ export class LoginUseCase {
                 cpf: user.cpf,
                 email: user.email,
                 role: user.role,
+                name: user.name,
             };
 
             this.logger.log('User logged in');
