@@ -45,6 +45,8 @@ export class AuthController {
     @Post('logout')
     @HttpCode(HttpStatus.NO_CONTENT)
     logout(@Res({ passthrough: true }) res: Response): void {
+        console.info('Apagando os cookies...');
+
         res.clearCookie('auth_tokens');
     }
 
