@@ -7,6 +7,7 @@ import {
     Req,
     Res,
     UnauthorizedException,
+    UseGuards,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { IRefreshTokenResponseDTO } from '../../application/dto/auth.dto';
@@ -15,6 +16,7 @@ import {
     LoginDTO,
     LoginOutputDTO,
 } from '../../application/dto/login.dto';
+import { JwtAuthGuard } from '../../application/services/auth.guard';
 import { LoginUseCase } from '../../application/usecases/login.usecase';
 import { RefreshTokenUseCase } from '../../application/usecases/refresh-token.usecase';
 
@@ -50,8 +52,8 @@ export class AuthController {
         res.clearCookie('auth_tokens');
     }
 
-    // TODO: Verificar se esse endpoint tem que ser protegido
     @Post('refresh')
+    @UseGuards(JwtAuthGuard)
     async refreshToken(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response
