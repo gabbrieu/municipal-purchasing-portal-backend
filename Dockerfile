@@ -2,7 +2,7 @@
 # BUILD FOR LOCAL DEVELOPMENT
 ###################
 
-FROM node:20.14-alpine AS development
+FROM node:22.14-alpine AS development
 
 WORKDIR /app
 
@@ -26,7 +26,7 @@ USER node
 # BUILD FOR PRODUCTION
 ###################
 
-FROM node:20.14-alpine AS build
+FROM node:22.14-alpine AS build
 
 WORKDIR /app
 
@@ -54,7 +54,7 @@ USER node
 # PRODUCTION
 ###################
 
-FROM node:20.14-alpine AS production
+FROM node:22.14-alpine AS production
 
 # Copy the bundled code from the build stage to the production image
 COPY --chown=node:node --from=build /app/node_modules ./node_modules
